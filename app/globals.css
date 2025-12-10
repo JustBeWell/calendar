@@ -105,3 +105,45 @@ input:focus, select:focus, textarea:focus {
   border-color: var(--primary-500);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
+
+/* Estilos de impresión */
+@media print {
+  @page {
+    margin: 1.5cm;
+    size: A4;
+  }
+  
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  .print\:hidden {
+    display: none !important;
+  }
+  
+  .print\:block {
+    display: block !important;
+  }
+  
+  /* Evitar saltos de página dentro de elementos */
+  .break-inside-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  
+  /* Forzar salto de página */
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+  
+  /* Colores en impresión */
+  table {
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #d1d5db;
+  }
+}
