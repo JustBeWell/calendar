@@ -132,7 +132,7 @@ export default function Calendar() {
               {hasWork && (
                 <div className="text-xs text-center mt-auto">
                   <div className="bg-emerald-500 text-white rounded-sm sm:rounded-md px-1 sm:px-2 py-0.5 sm:py-1 font-medium shadow-sm text-[10px] sm:text-xs">
-                    {hours.toFixed(1)}h
+                    {hours}h
                   </div>
                 </div>
               )}
