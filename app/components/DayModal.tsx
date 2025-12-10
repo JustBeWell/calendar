@@ -144,23 +144,23 @@ export default function DayModal({ date, onClose }: DayModalProps) {
         size="lg"
       >
         {/* Resumen del día */}
-        <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-xl p-6 mb-6 shadow-lg">
-          <div className="flex items-center justify-between">
+        <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-xl p-4 sm:p-6 mb-4 sm:mb-6 shadow-lg">
+          <div className="grid grid-cols-2 gap-4 sm:gap-0 sm:flex sm:items-center sm:justify-between">
             <div>
-              <p className="text-blue-100 text-sm mb-1 font-medium">Total del Día</p>
-              <p className="text-3xl font-bold">{totalHours}h</p>
+              <p className="text-blue-100 text-xs sm:text-sm mb-1 font-medium">Total del Día</p>
+              <p className="text-2xl sm:text-3xl font-bold">{totalHours}h</p>
             </div>
             <div className="text-right">
-              <p className="text-blue-100 text-sm mb-1 font-medium">A Cobrar</p>
-              <p className="text-3xl font-bold">{formatCurrency(totalAmount)}</p>
+              <p className="text-blue-100 text-xs sm:text-sm mb-1 font-medium">A Cobrar</p>
+              <p className="text-2xl sm:text-3xl font-bold">{formatCurrency(totalAmount)}</p>
             </div>
           </div>
         </div>
 
         {/* Lista de entradas */}
         {entries.length > 0 && (
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-4 text-neutral-900">
+          <div className="mb-4 sm:mb-6">
+            <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-neutral-900">
               Horas registradas
             </h3>
             <div className="space-y-3">
@@ -177,7 +177,7 @@ export default function DayModal({ date, onClose }: DayModalProps) {
                   >
                     {isEditing ? (
                       <div className="space-y-4">
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
                             <label className="block text-sm font-medium text-neutral-700 mb-1.5">
                               Horas (enteras) *
@@ -228,25 +228,25 @@ export default function DayModal({ date, onClose }: DayModalProps) {
                             {error}
                           </div>
                         )}
-                        <div className="flex gap-2">
+                        <div className="flex flex-col sm:flex-row gap-2">
                           <button
                             onClick={saveEntry}
-                            className="px-5 py-2.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-medium shadow-sm"
+                            className="flex-1 px-5 py-2.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-medium shadow-sm"
                           >
                             Guardar
                           </button>
                           <button
                             onClick={cancelForm}
-                            className="px-5 py-2.5 bg-neutral-200 text-neutral-700 rounded-lg hover:bg-neutral-300 transition font-medium"
+                            className="flex-1 px-5 py-2.5 bg-neutral-200 text-neutral-700 rounded-lg hover:bg-neutral-300 transition font-medium"
                           >
                             Cancelar
                           </button>
                         </div>
                       </div>
                     ) : (
-                      <div className="flex justify-between items-start">
-                        <div className="flex-1">
-                          <div className="font-semibold text-neutral-900 text-lg">
+                      <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
+                        <div className="flex-1 min-w-0">
+                          <div className="font-semibold text-neutral-900 text-base sm:text-lg">
                             {client?.name || 'Cliente desconocido'}
                           </div>
                           <div className="text-sm text-neutral-600 mt-1.5 font-medium">
@@ -258,16 +258,16 @@ export default function DayModal({ date, onClose }: DayModalProps) {
                             </div>
                           )}
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                           <button
                             onClick={() => startEditing(entry)}
-                            className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition font-medium shadow-sm"
+                            className="flex-1 sm:flex-none px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition font-medium shadow-sm"
                           >
                             Editar
                           </button>
                           <button
                             onClick={() => confirmDelete(entry.id)}
-                            className="px-4 py-2 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 transition font-medium shadow-sm"
+                            className="flex-1 sm:flex-none px-4 py-2 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 transition font-medium shadow-sm"
                           >
                             Eliminar
                           </button>
@@ -283,12 +283,12 @@ export default function DayModal({ date, onClose }: DayModalProps) {
 
         {/* Formulario para nueva entrada */}
         {isAdding ? (
-          <div className="border-2 border-dashed border-blue-300 rounded-xl p-5 bg-blue-50/50">
-            <h3 className="text-lg font-semibold mb-4 text-neutral-900">
+          <div className="border-2 border-dashed border-blue-300 rounded-xl p-4 sm:p-5 bg-blue-50/50">
+            <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-neutral-900">
               Nueva entrada
             </h3>
             <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-neutral-700 mb-1.5">
                     Horas (enteras) *

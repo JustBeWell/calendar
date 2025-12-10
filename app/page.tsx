@@ -18,10 +18,10 @@ export default function Home() {
     <div className="min-h-screen bg-neutral-50">
       {/* Header */}
       <header className="bg-white border-b border-neutral-200">
-        <div className="container mx-auto px-6 py-6">
+        <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6">
           <div className="flex items-center gap-3">
             <div>
-              <h1 className="text-2xl font-bold text-neutral-900 flex items-center gap-2">
+              <h1 className="text-lg sm:text-2xl font-bold text-neutral-900 flex items-center gap-2">
                 Gestor de pago/horas
               </h1>
             </div>
@@ -31,11 +31,11 @@ export default function Home() {
 
       {/* Navigation Tabs */}
       <div className="bg-white border-b border-neutral-200">
-        <div className="container mx-auto px-6">
-          <nav className="flex gap-1 -mb-px">
+        <div className="container mx-auto px-4 sm:px-6">
+          <nav className="flex gap-1 -mb-px overflow-x-auto">
             <button
               onClick={() => setActiveTab('calendar')}
-              className={`flex items-center gap-2 px-6 py-4 font-medium text-sm transition-all relative ${
+              className={`flex items-center gap-2 px-4 sm:px-6 py-3 sm:py-4 font-medium text-sm transition-all relative whitespace-nowrap ${
                 activeTab === 'calendar'
                   ? 'text-blue-600 border-b-2 border-blue-600'
                   : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50'
@@ -46,7 +46,7 @@ export default function Home() {
             </button>
             <button
               onClick={() => setActiveTab('clients')}
-              className={`flex items-center gap-2 px-6 py-4 font-medium text-sm transition-all relative ${
+              className={`flex items-center gap-2 px-4 sm:px-6 py-3 sm:py-4 font-medium text-sm transition-all relative whitespace-nowrap ${
                 activeTab === 'clients'
                   ? 'text-blue-600 border-b-2 border-blue-600'
                   : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50'
@@ -57,7 +57,7 @@ export default function Home() {
             </button>
             <button
               onClick={() => setActiveTab('reports')}
-              className={`flex items-center gap-2 px-6 py-4 font-medium text-sm transition-all relative ${
+              className={`flex items-center gap-2 px-4 sm:px-6 py-3 sm:py-4 font-medium text-sm transition-all relative whitespace-nowrap ${
                 activeTab === 'reports'
                   ? 'text-blue-600 border-b-2 border-blue-600'
                   : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50'
@@ -71,17 +71,17 @@ export default function Home() {
       </div>
 
       {/* Main Content */}
-      <main className="container mx-auto px-6 py-8">
+      <main className="container mx-auto px-4 sm:px-6 py-4 sm:py-8">
         {activeTab === 'calendar' && <Calendar />}
         {activeTab === 'clients' && <ClientManager />}
         {activeTab === 'reports' && <Reports />}
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-neutral-200 bg-white mt-12">
-        <div className="container mx-auto px-6 py-6">
-          <div className="flex items-center justify-between text-sm">
-            <p className="text-neutral-600">
+      <footer className="border-t border-neutral-200 bg-white mt-8 sm:mt-12">
+        <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6">
+          <div className="flex items-center justify-center text-xs sm:text-sm">
+            <p className="text-neutral-600 text-center">
               © 2025 Gestión de pagos/horas made by JustBeWell
             </p>
           </div>

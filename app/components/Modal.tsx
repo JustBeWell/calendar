@@ -54,7 +54,7 @@ export default function Modal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
       {/* Overlay con backdrop blur */}
       <div
         className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
@@ -64,17 +64,17 @@ export default function Modal({
 
       {/* Contenedor del modal */}
       <div
-        className={`relative bg-white rounded-2xl shadow-2xl w-full ${sizeClasses[size]} max-h-[90vh] flex flex-col animate-modal-enter`}
+        className={`relative bg-white rounded-xl sm:rounded-2xl shadow-2xl w-full ${sizeClasses[size]} max-h-[90vh] flex flex-col animate-modal-enter`}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-neutral-200">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-4 sm:py-5 border-b border-neutral-200">
           <h2
             id="modal-title"
-            className="text-xl font-bold text-neutral-900"
+            className="text-lg sm:text-xl font-bold text-neutral-900 pr-8"
           >
             {title}
           </h2>
@@ -102,7 +102,7 @@ export default function Modal({
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto px-6 py-6">
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6">
           {children}
         </div>
       </div>
