@@ -7,6 +7,7 @@
 import { useState, useEffect } from 'react';
 import { Client } from '../types';
 import { ClientStorage, WorkEntryStorage, generateId } from '../storage';
+import ConfirmDialog from './ConfirmDialog';
 
 export default function ClientManager() {
   const [clients, setClients] = useState<Client[]>([]);
@@ -14,6 +15,10 @@ export default function ClientManager() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState({ name: '' });
   const [error, setError] = useState('');
+  
+  // Estado para el modal de confirmación de eliminación
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [clientToDelete, setClientToDelete] = useState<{ id: string; name: string; entriesCount: number } | null>(null);
 
   useEffect(() => {
     setClients(ClientStorage.getAll());
@@ -82,20 +87,26 @@ export default function ClientManager() {
     loadData();
   };
 
-  // Eliminar cliente
-  const deleteClient = (clientId: string) => {
-    const entries = WorkEntryStorage.getByClient(clientId);
+  // Iniciar proceso de eliminación
+  const confirmDeleteClient = (clientId: string) => {
+    const client = clients.find(c => c.id === clientId);
+    if (!client) return;
     
-    if (entries.length > 0) {
-      alert(
-        `No se puede eliminar este cliente porque tiene ${entries.length} registro(s) de horas asociados. ` +
-        'Elimina primero las entradas de trabajo.'
-      );
-      return;
-    }
+    const entriesCount = WorkEntryStorage.getByClient(clientId).length;
+    
+    setClientToDelete({
+      id: clientId,
+      name: client.name,
+      entriesCount,
+    });
+    setShowDeleteConfirm(true);
+  };
 
-    if (confirm('¿Estás seguro de que quieres eliminar este cliente?')) {
-      ClientStorage.delete(clientId);
+  // Ejecutar eliminación
+  const executeDelete = () => {
+    if (clientToDelete) {
+      ClientStorage.delete(clientToDelete.id);
+      setClientToDelete(null);
       loadData();
     }
   };
@@ -213,7 +224,7 @@ export default function ClientManager() {
                         Editar
                       </button>
                       <button
-                        onClick={() => deleteClient(client.id)}
+                        onClick={() => confirmDeleteClient(client.id)}
                         className="flex-1 sm:flex-none px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium shadow-sm text-sm sm:text-base"
                       >
                         Eliminar
@@ -225,6 +236,43 @@ export default function ClientManager() {
             );
           })}
         </div>
+      )}
+
+      {/* Modal de confirmación de eliminación */}
+      {clientToDelete && (
+        <>
+          {clientToDelete.entriesCount > 0 ? (
+            <ConfirmDialog
+              isOpen={showDeleteConfirm}
+              onClose={() => {
+                setShowDeleteConfirm(false);
+                setClientToDelete(null);
+              }}
+              onConfirm={() => {
+                setShowDeleteConfirm(false);
+                setClientToDelete(null);
+              }}
+              title="No se puede eliminar"
+              message={`No puedes eliminar "${clientToDelete.name}" porque tiene ${clientToDelete.entriesCount} registro${clientToDelete.entriesCount > 1 ? 's' : ''} de horas asociado${clientToDelete.entriesCount > 1 ? 's' : ''}. Elimina primero las entradas de trabajo desde el calendario.`}
+              confirmText="Entendido"
+              type="warning"
+            />
+          ) : (
+            <ConfirmDialog
+              isOpen={showDeleteConfirm}
+              onClose={() => {
+                setShowDeleteConfirm(false);
+                setClientToDelete(null);
+              }}
+              onConfirm={executeDelete}
+              title="Eliminar Cliente"
+              message={`¿Estás seguro de que quieres eliminar "${clientToDelete.name}"? Esta acción no se puede deshacer.`}
+              confirmText="Eliminar"
+              cancelText="Cancelar"
+              type="danger"
+            />
+          )}
+        </>
       )}
     </div>
   );
