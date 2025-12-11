@@ -13,7 +13,7 @@ export interface Client {
 export interface WorkEntry {
   id: string;
   date: string; // formato: YYYY-MM-DD
-  hours: number; // permite decimales
+  hours: number; // permite enteros y 0.5 (media hora)
   clientId: string;
   note?: string;
 }

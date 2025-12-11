@@ -138,16 +138,19 @@ export const MONTH_NAMES = [
 export const DAY_NAMES = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
 
 /**
- * Valida que las horas sean válidas (positivas, enteras y razonables)
+ * Valida que las horas sean válidas (enteras o media hora)
  */
 export const validateHours = (hours: number): { valid: boolean; error?: string } => {
   if (hours <= 0) {
     return { valid: false, error: 'Las horas deben ser mayor a 0' };
   }
   
-  // Validar que sean horas enteras
-  if (!Number.isInteger(hours)) {
-    return { valid: false, error: 'Solo se permiten horas enteras (sin decimales)' };
+  // Validar que sean horas enteras o media hora (.5)
+  const isInteger = Number.isInteger(hours);
+  const isHalfHour = Number.isInteger(hours * 2); // ej: 1.5 * 2 = 3 (entero)
+  
+  if (!isInteger && !isHalfHour) {
+    return { valid: false, error: 'Solo se permiten horas enteras o medias horas (ej: 1, 1.5, 2, 2.5...)' };
   }
   
   if (hours > 24) {
@@ -165,8 +168,25 @@ export const formatCurrency = (amount: number): string => {
 };
 
 /**
- * Formatea horas con máximo 2 decimales
+ * Formatea horas mostrando enteros o medias horas de forma legible
  */
 export const formatHours = (hours: number): string => {
-  return hours.toFixed(2);
+  if (Number.isInteger(hours)) {
+    return hours.toString();
+  }
+  return hours.toFixed(1);
+};
+
+/**
+ * Formatea horas para el calendario (ej: "8h" o "8h 30min")
+ */
+export const formatHoursCalendar = (hours: number): string => {
+  const wholeHours = Math.floor(hours);
+  const minutes = (hours - wholeHours) * 60;
+  
+  if (minutes === 0) {
+    return `${wholeHours}h`;
+  }
+  
+  return `${wholeHours}h ${minutes}min`;
 };

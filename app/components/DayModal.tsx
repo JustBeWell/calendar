@@ -1,6 +1,6 @@
 /**
  * Modal para gestionar las horas trabajadas en un día específico
- * Sistema robusto con validación de horas enteras
+ * Sistema robusto con validación de horas enteras y medias horas
  */
 'use client';
 
@@ -86,7 +86,7 @@ export default function DayModal({ date, onClose }: DayModalProps) {
       return;
     }
 
-    const hours = parseInt(formData.hours);
+    const hours = parseFloat(formData.hours);
     if (isNaN(hours)) {
       setError('Introduce un número válido de horas');
       return;
@@ -180,17 +180,17 @@ export default function DayModal({ date, onClose }: DayModalProps) {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
                             <label className="block text-sm font-medium text-neutral-700 mb-1.5">
-                              Horas (enteras) *
+                              Horas *
                             </label>
                             <input
                               type="number"
-                              min="1"
+                              min="0.5"
                               max="24"
-                              step="1"
+                              step="0.5"
                               value={formData.hours}
                               onChange={e => setFormData({ ...formData, hours: e.target.value })}
                               className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                              placeholder="Ej: 8"
+                              placeholder="Ej: 8 o 8.5"
                             />
                           </div>
                           <div>
@@ -291,19 +291,19 @@ export default function DayModal({ date, onClose }: DayModalProps) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-neutral-700 mb-1.5">
-                    Horas (enteras) *
+                    Horas *
                   </label>
                   <input
                     type="number"
-                    min="1"
+                    min="0.5"
                     max="24"
-                    step="1"
+                    step="0.5"
                     value={formData.hours}
                     onChange={e => setFormData({ ...formData, hours: e.target.value })}
                     className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                    placeholder="Ej: 8"
+                    placeholder="Ej: 8 o 8.5"
                   />
-                  <p className="text-xs text-neutral-500 mt-1">Solo números enteros (1-24)</p>
+                  <p className="text-xs text-neutral-500 mt-1">Horas enteras o medias (0.5 en 0.5)</p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-neutral-700 mb-1.5">
